@@ -1,1219 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday, [Name]</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#120b12">
   <meta
     name="description"
-    content="A luxurious, romantic single-page birthday website designed like a digital love letter."
+    content="A warm, cinematic birthday letter for Priyanshi."
   >
+  <title>Happy Birthday Priyanshi</title>
+  <script>document.documentElement.classList.add('js');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap"
     rel="stylesheet"
   >
-  <style>
-    :root {
-      --ivory: #f8f1eb;
-      --champagne: #ead7c2;
-      --blush: #e8c0c4;
-      --rose-gold: #d29c94;
-      --gold: #caa25f;
-      --plum: #4b2438;
-      --plum-deep: #2d1422;
-      --text-soft: rgba(75, 36, 56, 0.74);
-      --card: rgba(255, 248, 242, 0.62);
-      --border: rgba(202, 162, 95, 0.28);
-      --shadow: 0 28px 80px rgba(75, 36, 56, 0.14);
-      --radius-lg: 30px;
-      --ease: cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Manrope", sans-serif;
-      color: var(--plum);
-      background:
-        radial-gradient(circle at top left, rgba(232, 192, 196, 0.75), transparent 28%),
-        radial-gradient(circle at top right, rgba(202, 162, 95, 0.25), transparent 24%),
-        linear-gradient(180deg, #fffaf6 0%, #f6ede7 46%, #f4e6e2 100%);
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(circle at center, rgba(255, 255, 255, 0.7) 0 1px, transparent 1px),
-        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.45) 0 1px, transparent 1px);
-      background-size: 26px 26px, 42px 42px;
-      opacity: 0.22;
-      pointer-events: none;
-      mix-blend-mode: soft-light;
-    }
-
-    ::selection {
-      background: rgba(210, 156, 148, 0.28);
-      color: var(--plum-deep);
-    }
-
-    a,
-    button,
-    label {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .ambient-orb {
-      position: fixed;
-      border-radius: 999px;
-      filter: blur(18px);
-      opacity: 0.5;
-      pointer-events: none;
-      z-index: 0;
-      animation: drift 18s ease-in-out infinite alternate;
-    }
-
-    .ambient-orb--one {
-      width: 17rem;
-      height: 17rem;
-      top: 7%;
-      left: -4rem;
-      background: rgba(232, 192, 196, 0.55);
-    }
-
-    .ambient-orb--two {
-      width: 19rem;
-      height: 19rem;
-      top: 42%;
-      right: -5rem;
-      background: rgba(202, 162, 95, 0.22);
-      animation-duration: 22s;
-    }
-
-    .ambient-orb--three {
-      width: 15rem;
-      height: 15rem;
-      bottom: 6%;
-      left: 14%;
-      background: rgba(210, 156, 148, 0.2);
-      animation-duration: 26s;
-    }
-
-    .petals,
-    .sparkles {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .petal {
-      position: absolute;
-      top: -10vh;
-      left: var(--left);
-      width: var(--size);
-      height: calc(var(--size) * 0.7);
-      border-radius: 65% 0 65% 0;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(232, 192, 196, 0.88));
-      opacity: 0.74;
-      transform: rotate(45deg);
-      animation: petal-fall var(--duration) linear infinite;
-      animation-delay: var(--delay);
-      box-shadow: 0 0 18px rgba(255, 255, 255, 0.2);
-    }
-
-    .sparkle {
-      position: absolute;
-      left: var(--left);
-      top: var(--top);
-      width: var(--size);
-      height: var(--size);
-      border-radius: 50%;
-      background: rgba(255, 244, 214, 0.9);
-      box-shadow:
-        0 0 18px rgba(255, 240, 204, 0.95),
-        0 0 28px rgba(202, 162, 95, 0.35);
-      animation: sparkle 3.2s ease-in-out infinite;
-      animation-delay: var(--delay);
-      opacity: 0;
-    }
-
-    .sparkle::before,
-    .sparkle::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255, 248, 228, 0.88);
-      border-radius: 999px;
-    }
-
-    .sparkle::before {
-      width: 180%;
-      height: 1px;
-    }
-
-    .sparkle::after {
-      width: 1px;
-      height: 180%;
-    }
-
-    .music-toggle {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      z-index: 5;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.95rem 1.1rem;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 999px;
-      background: rgba(255, 250, 246, 0.68);
-      color: var(--plum);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 16px 48px rgba(75, 36, 56, 0.16);
-      font: inherit;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 220ms var(--ease), box-shadow 220ms var(--ease), background 220ms var(--ease);
-    }
-
-    .music-toggle:hover,
-    .music-toggle:focus-visible {
-      transform: translateY(-2px);
-      box-shadow: 0 22px 54px rgba(75, 36, 56, 0.18);
-      background: rgba(255, 248, 242, 0.86);
-      outline: none;
-    }
-
-    .music-toggle.is-playing .music-toggle__icon {
-      animation: pulse-ring 1.8s ease-in-out infinite;
-    }
-
-    .music-toggle__icon {
-      width: 2rem;
-      height: 2rem;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, rgba(210, 156, 148, 0.16), rgba(202, 162, 95, 0.24));
-      color: var(--plum);
-      font-size: 1rem;
-      box-shadow: inset 0 0 0 1px rgba(202, 162, 95, 0.18);
-    }
-
-    main {
-      position: relative;
-      z-index: 1;
-    }
-
-    .section {
-      width: min(1120px, calc(100% - 1.5rem));
-      margin: 0 auto;
-      padding: 4rem 0;
-    }
-
-    .eyebrow {
-      margin: 0 0 1rem;
-      color: var(--gold);
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-    }
-
-    .section h2,
-    .hero h1,
-    .closing__quote {
-      font-family: "Cormorant Garamond", serif;
-      text-wrap: balance;
-    }
-
-    .section h2 {
-      margin: 0;
-      font-size: clamp(2.5rem, 7vw, 4.6rem);
-      line-height: 0.96;
-      letter-spacing: -0.03em;
-      color: var(--plum-deep);
-    }
-
-    .section-intro,
-    .letter__text p,
-    .closing p,
-    .hero__lead {
-      color: var(--text-soft);
-      line-height: 1.8;
-      font-size: 1rem;
-    }
-
-    .hero {
-      min-height: 100svh;
-      display: grid;
-      align-items: center;
-      padding: 5.75rem 0 3.5rem;
-      position: relative;
-    }
-
-    .hero__frame {
-      position: relative;
-      width: min(1080px, calc(100% - 1.5rem));
-      margin: 0 auto;
-      padding: clamp(2rem, 6vw, 4rem);
-      border-radius: 38px;
-      background:
-        linear-gradient(135deg, rgba(255, 252, 248, 0.74), rgba(255, 244, 236, 0.55)),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0));
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      isolation: isolate;
-    }
-
-    .hero__frame::before {
-      content: "";
-      position: absolute;
-      inset: 1px;
-      border-radius: inherit;
-      background:
-        radial-gradient(circle at top right, rgba(255, 255, 255, 0.6), transparent 30%),
-        linear-gradient(115deg, rgba(255, 255, 255, 0.4), transparent 46%);
-      opacity: 0.8;
-      z-index: -1;
-    }
-
-    .hero__frame::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(110deg, transparent 34%, rgba(255, 255, 255, 0.4) 50%, transparent 66%);
-      transform: translateX(-140%);
-      animation: shimmer 7s ease-in-out infinite;
-      z-index: -1;
-    }
-
-    .hero__content {
-      position: relative;
-      z-index: 1;
-      max-width: 760px;
-      animation: hero-rise 1200ms var(--ease) both;
-    }
-
-    .hero h1 {
-      margin: 0;
-      font-size: clamp(4rem, 13vw, 7.8rem);
-      line-height: 0.92;
-      letter-spacing: -0.05em;
-      color: var(--plum-deep);
-    }
-
-    .hero__accent {
-      background: linear-gradient(135deg, #b76c67, #d7b26d);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 10px 28px rgba(210, 156, 148, 0.14);
-    }
-
-    .hero__lead {
-      max-width: 36rem;
-      margin: 1.5rem 0 0;
-      font-size: clamp(1rem, 2.8vw, 1.18rem);
-    }
-
-    .hero__actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.9rem;
-      margin-top: 2rem;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.55rem;
-      min-height: 3.4rem;
-      padding: 0.9rem 1.4rem;
-      border-radius: 999px;
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 700;
-      transition: transform 220ms var(--ease), box-shadow 220ms var(--ease), border-color 220ms var(--ease);
-    }
-
-    .button:hover,
-    .button:focus-visible {
-      transform: translateY(-2px);
-      outline: none;
-    }
-
-    .button--primary {
-      color: #fffaf7;
-      background: linear-gradient(135deg, #a85f62, #d2a17d);
-      box-shadow: 0 16px 40px rgba(168, 95, 98, 0.28);
-    }
-
-    .button--ghost {
-      color: var(--plum);
-      border: 1px solid rgba(75, 36, 56, 0.12);
-      background: rgba(255, 251, 248, 0.56);
-      backdrop-filter: blur(10px);
-    }
-
-    .hero__note {
-      margin-top: 2rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.65rem;
-      padding: 0.8rem 1rem;
-      border-radius: 999px;
-      background: rgba(255, 249, 245, 0.7);
-      border: 1px solid rgba(202, 162, 95, 0.2);
-      color: var(--text-soft);
-      font-size: 0.92rem;
-      backdrop-filter: blur(10px);
-    }
-
-    .hero__note::before {
-      content: "";
-      width: 0.5rem;
-      height: 0.5rem;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--rose-gold), var(--gold));
-      box-shadow: 0 0 0 8px rgba(210, 156, 148, 0.1);
-    }
-
-    .letter__panel,
-    .gallery__panel,
-    .wishes__panel,
-    .closing__panel {
-      position: relative;
-      border-radius: var(--radius-lg);
-      padding: clamp(1.5rem, 5vw, 3rem);
-      background: var(--card);
-      backdrop-filter: blur(14px);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .letter__panel::before,
-    .gallery__panel::before,
-    .wishes__panel::before,
-    .closing__panel::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(130deg, rgba(255, 255, 255, 0.48), transparent 42%);
-      pointer-events: none;
-    }
-
-    .letter__grid {
-      display: grid;
-      gap: 1.5rem;
-    }
-
-    .letter__text p {
-      margin: 1.25rem 0 0;
-      max-width: 44rem;
-    }
-
-    .letter__aside {
-      padding: 1.4rem;
-      border-radius: 24px;
-      background: rgba(255, 251, 248, 0.7);
-      border: 1px solid rgba(202, 162, 95, 0.18);
-      color: var(--text-soft);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
-    }
-
-    .letter__aside strong {
-      display: block;
-      margin-bottom: 0.6rem;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.7rem;
-      line-height: 1;
-      color: var(--plum-deep);
-    }
-
-    .gallery__panel,
-    .wishes__panel,
-    .closing__panel {
-      margin-top: 0.8rem;
-    }
-
-    .gallery-grid {
-      display: grid;
-      gap: 1.25rem;
-      margin-top: 2rem;
-    }
-
-    .polaroid {
-      position: relative;
-      display: grid;
-      gap: 1rem;
-      padding: 1rem 1rem 1.15rem;
-      border-radius: 26px;
-      background: rgba(255, 255, 255, 0.92);
-      box-shadow: 0 18px 40px rgba(75, 36, 56, 0.12);
-      cursor: pointer;
-      transition: transform 320ms var(--ease), box-shadow 320ms var(--ease);
-      transform: rotate(var(--rotate));
-      user-select: none;
-    }
-
-    .polaroid:hover,
-    .polaroid:focus-within {
-      transform: rotate(0deg) translateY(-6px) scale(1.01);
-      box-shadow: 0 24px 48px rgba(75, 36, 56, 0.16);
-      outline: none;
-    }
-
-    .polaroid:focus-visible {
-      outline: 2px solid rgba(168, 95, 98, 0.4);
-      outline-offset: 4px;
-    }
-
-    .gallery-input {
-      display: none;
-    }
-
-    .polaroid__image {
-      position: relative;
-      border-radius: 20px;
-      overflow: hidden;
-      aspect-ratio: 4 / 5;
-      display: grid;
-      place-items: center;
-      padding: 1rem;
-      background:
-        linear-gradient(180deg, rgba(255, 250, 246, 0.92), rgba(232, 192, 196, 0.35)),
-        radial-gradient(circle at top left, rgba(202, 162, 95, 0.2), transparent 32%);
-      border: 1px solid rgba(202, 162, 95, 0.16);
-      text-align: center;
-      transition: transform 260ms var(--ease), filter 260ms var(--ease);
-      background-size: cover;
-      background-position: center;
-    }
-
-    .polaroid:hover .polaroid__image {
-      transform: scale(1.015);
-      filter: saturate(1.03);
-    }
-
-    .polaroid__image::before {
-      content: "+";
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      width: 2rem;
-      height: 2rem;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.82);
-      color: var(--plum);
-      font-size: 1.3rem;
-      box-shadow: 0 8px 18px rgba(75, 36, 56, 0.12);
-      transition: opacity 200ms ease;
-    }
-
-    .polaroid__image.has-image::before {
-      opacity: 0;
-    }
-
-    .polaroid__image span {
-      max-width: 9rem;
-      color: rgba(75, 36, 56, 0.6);
-      font-size: 0.95rem;
-      line-height: 1.6;
-      font-weight: 600;
-    }
-
-    .polaroid__caption {
-      text-align: center;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.45rem;
-      color: var(--plum-deep);
-    }
-
-    .wish-grid {
-      display: grid;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    .wish-card {
-      position: relative;
-      padding: 1.4rem;
-      border-radius: 24px;
-      background: rgba(255, 251, 248, 0.8);
-      border: 1px solid rgba(202, 162, 95, 0.14);
-      box-shadow: 0 18px 42px rgba(75, 36, 56, 0.08);
-      transition: transform 240ms var(--ease), box-shadow 240ms var(--ease), border-color 240ms var(--ease);
-      overflow: hidden;
-    }
-
-    .wish-card::before {
-      content: "";
-      position: absolute;
-      inset: auto auto -20% -5%;
-      width: 55%;
-      height: 55%;
-      background: radial-gradient(circle, rgba(210, 156, 148, 0.14), transparent 70%);
-      pointer-events: none;
-    }
-
-    .wish-card:hover,
-    .wish-card:focus-within {
-      transform: translateY(-5px);
-      box-shadow: 0 22px 48px rgba(75, 36, 56, 0.12);
-      border-color: rgba(202, 162, 95, 0.3);
-    }
-
-    .wish-card__icon {
-      width: 3rem;
-      height: 3rem;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      font-size: 1.35rem;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, rgba(210, 156, 148, 0.14), rgba(202, 162, 95, 0.22));
-      box-shadow: inset 0 0 0 1px rgba(202, 162, 95, 0.18);
-    }
-
-    .wish-card h3 {
-      margin: 0;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.85rem;
-      line-height: 1;
-      color: var(--plum-deep);
-    }
-
-    .wish-card p {
-      margin: 0.85rem 0 0;
-      color: var(--text-soft);
-      line-height: 1.75;
-    }
-
-    .closing {
-      padding-bottom: 5rem;
-    }
-
-    .closing__panel {
-      text-align: center;
-    }
-
-    .closing__quote {
-      margin: 1rem auto 0;
-      max-width: 18ch;
-      font-size: clamp(2.6rem, 9vw, 5.5rem);
-      line-height: 0.98;
-      letter-spacing: -0.04em;
-      color: var(--plum-deep);
-    }
-
-    .closing p {
-      max-width: 38rem;
-      margin: 1.4rem auto 0;
-    }
-
-    .closing .button {
-      margin-top: 2rem;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(32px) scale(0.985);
-      transition:
-        opacity 720ms var(--ease),
-        transform 720ms var(--ease);
-    }
-
-    .reveal.is-visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-
-    @media (min-width: 700px) {
-      .section {
-        width: min(1120px, calc(100% - 2.5rem));
-      }
-
-      .gallery-grid,
-      .wish-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .letter__grid {
-        grid-template-columns: 1.35fr 0.85fr;
-        align-items: end;
-      }
-
-      .music-toggle {
-        top: 1.4rem;
-        right: 1.4rem;
-      }
-    }
-
-    @media (min-width: 980px) {
-      .gallery-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
-
-      .wish-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-      }
-
-      .hero__frame {
-        padding: 4.8rem;
-      }
-
-      .hero__lead {
-        max-width: 40rem;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .hero {
-        padding-top: 6.8rem;
-      }
-
-      .hero__actions {
-        flex-direction: column;
-      }
-
-      .button {
-        width: 100%;
-      }
-
-      .music-toggle {
-        padding: 0.85rem 0.95rem;
-      }
-
-      .music-toggle span:last-child {
-        display: none;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-
-      .reveal {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    @keyframes hero-rise {
-      from {
-        opacity: 0;
-        transform: translateY(28px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes shimmer {
-      0%,
-      18% {
-        transform: translateX(-140%);
-      }
-      42% {
-        transform: translateX(140%);
-      }
-      100% {
-        transform: translateX(140%);
-      }
-    }
-
-    @keyframes drift {
-      from {
-        transform: translate3d(0, 0, 0);
-      }
-      to {
-        transform: translate3d(0, 18px, 0);
-      }
-    }
-
-    @keyframes petal-fall {
-      0% {
-        transform: translate3d(0, -12vh, 0) rotate(15deg);
-        opacity: 0;
-      }
-      12% {
-        opacity: 0.74;
-      }
-      100% {
-        transform: translate3d(var(--drift), 115vh, 0) rotate(380deg);
-        opacity: 0;
-      }
-    }
-
-    @keyframes sparkle {
-      0%,
-      100% {
-        opacity: 0;
-        transform: scale(0.3);
-      }
-      35% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      68% {
-        opacity: 0.65;
-        transform: scale(0.75);
-      }
-    }
-
-    @keyframes pulse-ring {
-      0%,
-      100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.08);
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="ambient-orb ambient-orb--one" aria-hidden="true"></div>
-  <div class="ambient-orb ambient-orb--two" aria-hidden="true"></div>
-  <div class="ambient-orb ambient-orb--three" aria-hidden="true"></div>
-  <div class="petals" id="petals" aria-hidden="true"></div>
-  <div class="sparkles" id="sparkles" aria-hidden="true"></div>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <canvas id="fx-canvas" aria-hidden="true"></canvas>
 
-  <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false" aria-label="Toggle background music">
-    <span class="music-toggle__icon" aria-hidden="true">&#9835;</span>
-    <span id="musicLabel">Play music</span>
-  </button>
+  <div id="app">
+    <header class="hero" id="hero">
+      <div class="spotlight" aria-hidden="true"></div>
+      <div class="petal-layer" id="petalLayer" aria-hidden="true"></div>
 
-  <main>
-    <section class="hero" id="top">
-      <div class="hero__frame">
-        <div class="hero__content">
-          <p class="eyebrow">A Birthday Love Letter</p>
-          <h1>
-            Happy Birthday,
-            <span class="hero__accent" data-birthday-name>[Name]</span>
-            <span aria-hidden="true">&#127874;</span>
-          </h1>
-          <p class="hero__lead">
-            Some meetings are brief, yet unforgettable. This little page was made to celebrate your day
-            with warmth, admiration, and a quiet hope for another hello someday.
-          </p>
-          <div class="hero__actions">
-            <a class="button button--primary" href="#message">Read the note</a>
-            <a class="button button--ghost" href="#gallery">See the memories</a>
-          </div>
-          <div class="hero__note">Softly made for someone who left a lasting impression.</div>
-        </div>
-      </div>
-    </section>
+      <nav class="topbar" aria-label="Main">
+        <div class="brand-pill">For Priyanshi</div>
+        <a class="top-link" href="#message">Read the note</a>
+      </nav>
 
-    <section class="section reveal" id="message">
-      <div class="letter__panel">
-        <div class="letter__grid">
-          <div class="letter__text">
-            <p class="eyebrow">Personal Message</p>
-            <h2>For the moment that stayed with me.</h2>
-            <p>
-              We have only met once, yet that brief moment has remained in my heart with surprising warmth.
-              There was something gentle and memorable about it, the kind of presence that lingers quietly
-              long after the day has passed.
-            </p>
-            <p>
-              On your birthday, I simply wanted to send you something sincere. I hope this year wraps you in
-              happiness, keeps you glowing with good health, fills your life with love, and brings you the kind
-              of beautiful moments that feel effortless and true.
-            </p>
-            <p>
-              And if life is kind enough to cross our paths again, I would genuinely love the chance to meet
-              you once more and create another memory just as lovely. Until then, please know you are being
-              thought of with admiration, softness, and the warmest wishes today.
-            </p>
-          </div>
-          <aside class="letter__aside">
-            <strong>Quietly, sincerely.</strong>
-            Some people are remembered loudly. Others stay in the heart in a much softer, more beautiful way.
-            You feel like the second kind.
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <section class="section reveal" id="gallery">
-      <p class="eyebrow">Photo Gallery</p>
-      <h2>A few frames waiting for your smile.</h2>
-      <p class="section-intro">
-        Tap any card to upload a photo and turn this page into a keepsake. The layout is designed to feel
-        like a polished collection of little moments.
-      </p>
-      <div class="gallery__panel">
-        <div class="gallery-grid">
-          <label class="polaroid" tabindex="0" style="--rotate:-3deg;">
-            <input class="gallery-input" type="file" accept="image/*">
-            <div class="polaroid__image"><span>Upload your photo</span></div>
-            <div class="polaroid__caption">A lovely memory</div>
-          </label>
-          <label class="polaroid" tabindex="0" style="--rotate:2.5deg;">
-            <input class="gallery-input" type="file" accept="image/*">
-            <div class="polaroid__image"><span>Upload your photo</span></div>
-            <div class="polaroid__caption">A warm little smile</div>
-          </label>
-          <label class="polaroid" tabindex="0" style="--rotate:-2deg;">
-            <input class="gallery-input" type="file" accept="image/*">
-            <div class="polaroid__image"><span>Upload your photo</span></div>
-            <div class="polaroid__caption">A soft golden moment</div>
-          </label>
-          <label class="polaroid" tabindex="0" style="--rotate:3deg;">
-            <input class="gallery-input" type="file" accept="image/*">
-            <div class="polaroid__image"><span>Upload your photo</span></div>
-            <div class="polaroid__caption">A memory worth keeping</div>
-          </label>
-        </div>
-      </div>
-    </section>
-
-    <section class="section reveal" id="wishes">
-      <p class="eyebrow">Birthday Wishes</p>
-      <h2>Wrapped softly, meant sincerely.</h2>
-      <div class="wishes__panel">
-        <div class="wish-grid">
-          <article class="wish-card">
-            <div class="wish-card__icon" aria-hidden="true">&#127874;</div>
-            <h3>Sweet Joy</h3>
-            <p>May your birthday feel beautifully gentle, full of sweetness, laughter, and people who cherish you.</p>
-          </article>
-          <article class="wish-card">
-            <div class="wish-card__icon" aria-hidden="true">&#127775;</div>
-            <h3>Bright Days</h3>
-            <p>May the year ahead open doors that feel right for you and light your path in the softest way.</p>
-          </article>
-          <article class="wish-card">
-            <div class="wish-card__icon" aria-hidden="true">&#128171;</div>
-            <h3>Gentle Magic</h3>
-            <p>May unexpected little joys find you often, and may your heart stay peaceful through every season.</p>
-          </article>
-          <article class="wish-card">
-            <div class="wish-card__icon" aria-hidden="true">&#127800;</div>
-            <h3>Warm Love</h3>
-            <p>May you always be surrounded by tenderness, good health, kind energy, and love that feels honest.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section reveal closing" id="closing">
-      <div class="closing__panel">
-        <p class="eyebrow">Closing Note</p>
-        <div class="closing__quote">Until we meet again, wishing you the brightest birthday &#127775;</div>
-        <p>
-          May this chapter be graceful, memorable, and full of the kind of beauty that lingers long after the day is over.
+      <div class="hero-inner">
+        <p class="eyebrow reveal">A Birthday Letter</p>
+        <h1 class="headline" aria-label="Happy Birthday Priyanshi">
+          <span class="title-top">Happy Birthday</span>
+          <span class="title-name">Priyanshi</span>
+        </h1>
+        <p class="subtext reveal">
+          Today is simply about celebrating you, your smile, and all the good things I hope this year brings.
         </p>
-        <a class="button button--ghost" href="#top">Return to the beginning</a>
+
+        <div class="hero-actions reveal">
+          <a class="btn btn-primary" href="#message">Start Reading</a>
+          <a class="btn btn-secondary" href="#gallery">See the Gallery</a>
+        </div>
+
+        <div class="hero-metrics reveal" aria-label="What this page holds">
+          <article class="metric-chip">
+            <strong>Birthday wishes</strong>
+            <span>Good health, peace of mind, and many reasons to smile.</span>
+          </article>
+          <article class="metric-chip">
+            <strong>Daily warmth</strong>
+            <span>The kind of comfort that grows quietly through regular conversations.</span>
+          </article>
+          <article class="metric-chip">
+            <strong>A beautiful year</strong>
+            <span>More laughter, calmer days, and moments that feel truly special.</span>
+          </article>
+        </div>
       </div>
-    </section>
-  </main>
-  <script>
-    const birthdayProfile = {
-      name: "[Name]"
-    };
 
-    document.querySelectorAll("[data-birthday-name]").forEach((element) => {
-      element.textContent = birthdayProfile.name;
-    });
-    document.title = `Happy Birthday, ${birthdayProfile.name}`;
+      <div class="hero-panels" aria-hidden="true">
+        <aside class="info-card card-left">
+          <span class="info-label">What I like most</span>
+          <p>Your smile, your way of talking, and how naturally you make things feel lighter.</p>
+        </aside>
+        <aside class="info-card card-right">
+          <span class="info-label">For this year</span>
+          <p>More happiness, better days, good health, and the kind of love that feels safe and real.</p>
+        </aside>
+      </div>
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const petalContainer = document.getElementById("petals");
-    const sparkleContainer = document.getElementById("sparkles");
+      <div class="scroll-cue" aria-hidden="true">
+        <span class="scroll-line"></span>
+        <span>Scroll gently</span>
+      </div>
+    </header>
 
-    function createPetals(count) {
-      if (prefersReducedMotion) {
-        return;
-      }
+    <main>
+      <section id="gallery" class="panel gallery-panel">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Gallery</p>
+          <h2>Little frames, softly kept.</h2>
+          <p>Tap any photo to open it fully.</p>
+        </div>
 
-      for (let index = 0; index < count; index += 1) {
-        const petal = document.createElement("span");
-        petal.className = "petal";
-        petal.style.setProperty("--left", `${Math.random() * 100}%`);
-        petal.style.setProperty("--size", `${14 + Math.random() * 16}px`);
-        petal.style.setProperty("--delay", `${Math.random() * -18}s`);
-        petal.style.setProperty("--duration", `${15 + Math.random() * 14}s`);
-        petal.style.setProperty("--drift", `${-60 + Math.random() * 120}px`);
-        petalContainer.appendChild(petal);
-      }
-    }
+        <div class="gallery-grid">
+          <button
+            class="gallery-card reveal tall"
+            type="button"
+            data-full="images/photo-1607992922515-7e38329e65d4.avif"
+            data-caption="The kind of smile that stays in your mind for longer than expected."
+          >
+            <img src="images/photo-1607992922515-7e38329e65d4.avif" alt="Portrait photo of Priyanshi" loading="lazy" decoding="async">
+            <span class="gallery-copy"><strong>Soft Light</strong><span>Gentle, bright, memorable.</span></span>
+          </button>
 
-    function createSparkles(count) {
-      if (prefersReducedMotion) {
-        return;
-      }
+          <button
+            class="gallery-card reveal wide"
+            type="button"
+            data-full="images/photo-1626594995085-36b551227b9a.avif"
+            data-caption="There is something very easy and graceful in the way you carry yourself."
+          >
+            <img src="images/photo-1626594995085-36b551227b9a.avif" alt="Graceful portrait of Priyanshi" loading="lazy" decoding="async">
+            <span class="gallery-copy"><strong>Easy Grace</strong><span>Simple and beautiful without trying.</span></span>
+          </button>
 
-      for (let index = 0; index < count; index += 1) {
-        const sparkle = document.createElement("span");
-        sparkle.className = "sparkle";
-        sparkle.style.setProperty("--left", `${Math.random() * 100}%`);
-        sparkle.style.setProperty("--top", `${Math.random() * 100}%`);
-        sparkle.style.setProperty("--size", `${4 + Math.random() * 8}px`);
-        sparkle.style.setProperty("--delay", `${Math.random() * 4}s`);
-        sparkleContainer.appendChild(sparkle);
-      }
-    }
+          <button
+            class="gallery-card reveal"
+            type="button"
+            data-full="images/premium_photo-1667311649552-2cfab63bdcfc.avif"
+            data-caption="A frame that feels warm, calm, and quietly lovely."
+          >
+            <img src="images/premium_photo-1667311649552-2cfab63bdcfc.avif" alt="Candid portrait of Priyanshi" loading="lazy" decoding="async">
+            <span class="gallery-copy"><strong>Quiet Charm</strong><span>The kind that does not need effort.</span></span>
+          </button>
 
-    createPetals(16);
-    createSparkles(24);
+          <button
+            class="gallery-card reveal"
+            type="button"
+            data-full="images/premium_photo-1673292293042-cafd9c8a3ab3.avif"
+            data-caption="Some impressions are soft, but they last. This feels like one of them."
+          >
+            <img src="images/premium_photo-1673292293042-cafd9c8a3ab3.avif" alt="Poised portrait of Priyanshi" loading="lazy" decoding="async">
+            <span class="gallery-copy"><strong>Lasting Impression</strong><span>A moment that lingers.</span></span>
+          </button>
+        </div>
+      </section>
 
-    const revealElements = document.querySelectorAll(".reveal");
-    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
-      revealElements.forEach((element) => {
-        element.classList.add("is-visible");
-      });
-    } else {
-      const revealObserver = new IntersectionObserver(
-        (entries, observer) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) {
-              return;
-            }
+      <section id="story" class="panel story-panel">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Birthday Thoughts</p>
+          <h2>Three simple things I wanted to say today.</h2>
+          <p>Nothing dramatic, just genuine.</p>
+        </div>
 
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          });
-        },
-        { threshold: 0.18 }
-      );
+        <div class="story-grid">
+          <article class="story-card reveal">
+            <span class="story-index">01</span>
+            <h3>You make things lighter.</h3>
+            <p>Even regular conversations feel better when they carry your warmth, humor, and energy.</p>
+          </article>
+          <article class="story-card reveal">
+            <span class="story-index">02</span>
+            <h3>Your smile matters.</h3>
+            <p>It has a way of making everything feel softer, brighter, and a little more alive.</p>
+          </article>
+          <article class="story-card reveal">
+            <span class="story-index">03</span>
+            <h3>You deserve a good year.</h3>
+            <p>I really hope this year brings you peace, progress, love, and many moments worth remembering.</p>
+          </article>
+        </div>
+      </section>
 
-      revealElements.forEach((element) => {
-        revealObserver.observe(element);
-      });
-    }
+      <section id="message" class="panel message-panel">
+        <div class="message-box reveal">
+          <p class="section-kicker">My Message</p>
+          <h2>I wanted this to sound like me.</h2>
+          <p
+            class="message-text"
+            id="messageText"
+            data-message="Priyanshi, I wanted to keep this simple because birthday wishes feel best when they are honest. Talking to you has become one of those small parts of the day that quietly makes things better. You have a very warm way about you, and your smile has a way of making everything feel lighter. On your birthday, I just want to wish you real happiness, good health, calm days, success in the things you care about, and love that always feels genuine. I hope this year gives you many reasons to smile and very few reasons to worry."
+          >Priyanshi, I wanted to keep this simple because birthday wishes feel best when they are honest. Talking to you has become one of those small parts of the day that quietly makes things better. You have a very warm way about you, and your smile has a way of making everything feel lighter. On your birthday, I just want to wish you real happiness, good health, calm days, success in the things you care about, and love that always feels genuine. I hope this year gives you many reasons to smile and very few reasons to worry.</p>
+          <p class="message-signoff">Happy birthday, truly.</p>
+        </div>
+      </section>
 
-    document.querySelectorAll(".polaroid").forEach((card) => {
-      const input = card.querySelector(".gallery-input");
-      const preview = card.querySelector(".polaroid__image");
+      <section id="wishes" class="panel wishes-panel">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Small Wishes</p>
+          <h2>A few things I hope this year gives you.</h2>
+          <p>The simple kind of wishes that stay meaningful all year.</p>
+        </div>
 
-      card.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          input.click();
-        }
-      });
+        <div class="wish-grid">
+          <article class="wish-card reveal">
+            <span class="wish-icon" aria-hidden="true">&#127874;</span>
+            <h3>Good days</h3>
+            <p>I hope your birthday feels happy, relaxed, and full of people who genuinely love having you in their life.</p>
+          </article>
+          <article class="wish-card reveal">
+            <span class="wish-icon" aria-hidden="true">&#127775;</span>
+            <h3>Peace of mind</h3>
+            <p>I hope this year gives you fewer heavy days and many more moments where you can simply breathe and feel at peace.</p>
+          </article>
+          <article class="wish-card reveal">
+            <span class="wish-icon" aria-hidden="true">&#128171;</span>
+            <h3>Good health</h3>
+            <p>I hope you stay healthy, strong, and always surrounded by the kind of care that feels real.</p>
+          </article>
+          <article class="wish-card reveal">
+            <span class="wish-icon" aria-hidden="true">&#127800;</span>
+            <h3>Real love</h3>
+            <p>I hope life keeps sending you honest people, warm moments, and love that feels calm, safe, and true.</p>
+          </article>
+        </div>
+      </section>
 
-      input.addEventListener("change", () => {
-        const file = input.files && input.files[0];
-        if (!file) {
-          return;
-        }
+      <section id="surprise" class="panel surprise-panel">
+        <div class="surprise-card reveal">
+          <p class="section-kicker">One More Thing</p>
+          <h2>Tap this when you want a little celebration.</h2>
+          <p>A soft burst of petals, shimmer, and light just for the moment.</p>
+          <button class="btn btn-primary" id="surpriseBtn" type="button">Send a little celebration</button>
+        </div>
+      </section>
 
-        const reader = new FileReader();
-        reader.onload = (loadEvent) => {
-          preview.style.backgroundImage = `url("${loadEvent.target.result}")`;
-          preview.classList.add("has-image");
-          preview.innerHTML = "";
-        };
-        reader.readAsDataURL(file);
-      });
-    });
+      <section id="ending" class="panel ending-panel">
+        <div class="ending-glow" aria-hidden="true"></div>
+        <p class="section-kicker reveal">Closing Note</p>
+        <h2 class="final-message reveal">
+          On your birthday, I just want you to know that you are deeply appreciated, and I hope this whole year is kind to you.
+        </h2>
+        <p class="ending-copy reveal">
+          Happy birthday, Priyanshi. May this year bring you peace, laughter, progress, and everything your heart quietly hopes for.
+        </p>
+        <p class="ending-signature reveal">With love, Dipen</p>
+      </section>
+    </main>
 
-    const musicToggle = document.getElementById("musicToggle");
-    const musicLabel = document.getElementById("musicLabel");
-    let audioContext;
-    let masterGain;
-    let delayNode;
-    let feedbackGain;
-    let isMusicPlaying = false;
-    let musicLoopId;
-    let progressionIndex = 0;
+    <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Expanded photo">
+      <button id="lbClose" class="lb-close" type="button" aria-label="Close photo view">Close</button>
+      <figure class="lb-inner">
+        <img id="lbImage" src="" alt="Expanded birthday photo">
+        <figcaption id="lbCaption"></figcaption>
+      </figure>
+    </div>
+  </div>
 
-    const progression = [
-      { bass: 41, chord: [48, 53, 57, 60], melody: [69, 72, 76] },
-      { bass: 45, chord: [52, 57, 60, 64], melody: [72, 76, 79] },
-      { bass: 38, chord: [45, 50, 53, 57], melody: [67, 71, 74] },
-      { bass: 43, chord: [50, 55, 59, 62], melody: [71, 74, 78] }
-    ];
-
-    function midiToFrequency(note) {
-      return 440 * Math.pow(2, (note - 69) / 12);
-    }
-
-    function setupAudio() {
-      if (audioContext) {
-        return;
-      }
-
-      const AudioCtor = window.AudioContext || window.webkitAudioContext;
-      if (!AudioCtor) {
-        musicToggle.disabled = true;
-        musicLabel.textContent = "Music unavailable";
-        return;
-      }
-
-      audioContext = new AudioCtor();
-
-      masterGain = audioContext.createGain();
-      masterGain.gain.value = 0.06;
-      masterGain.connect(audioContext.destination);
-
-      delayNode = audioContext.createDelay();
-      delayNode.delayTime.value = 0.24;
-
-      feedbackGain = audioContext.createGain();
-      feedbackGain.gain.value = 0.16;
-
-      delayNode.connect(feedbackGain);
-      feedbackGain.connect(delayNode);
-      delayNode.connect(masterGain);
-    }
-
-    function playNote(frequency, startTime, duration, volume, type = "triangle") {
-      const oscillator = audioContext.createOscillator();
-      const overtone = audioContext.createOscillator();
-      const filter = audioContext.createBiquadFilter();
-      const envelope = audioContext.createGain();
-
-      oscillator.type = type;
-      oscillator.frequency.setValueAtTime(frequency, startTime);
-      oscillator.detune.setValueAtTime(-2, startTime);
-
-      overtone.type = "sine";
-      overtone.frequency.setValueAtTime(frequency * 2, startTime);
-      overtone.detune.setValueAtTime(2, startTime);
-
-      filter.type = "lowpass";
-      filter.frequency.setValueAtTime(1800, startTime);
-      filter.Q.value = 0.8;
-
-      envelope.gain.setValueAtTime(0.0001, startTime);
-      envelope.gain.exponentialRampToValueAtTime(volume, startTime + 0.04);
-      envelope.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
-
-      oscillator.connect(filter);
-      overtone.connect(filter);
-      filter.connect(envelope);
-      envelope.connect(masterGain);
-      envelope.connect(delayNode);
-
-      oscillator.start(startTime);
-      overtone.start(startTime);
-      oscillator.stop(startTime + duration + 0.08);
-      overtone.stop(startTime + duration + 0.08);
-    }
-
-    function schedulePattern() {
-      if (!audioContext) {
-        return;
-      }
-
-      const currentTime = audioContext.currentTime + 0.02;
-      const pattern = progression[progressionIndex];
-
-      playNote(midiToFrequency(pattern.bass), currentTime, 2.6, 0.022, "sine");
-
-      pattern.chord.forEach((note, index) => {
-        playNote(
-          midiToFrequency(note),
-          currentTime + index * 0.12,
-          1.9,
-          0.016 + index * 0.003,
-          index % 2 === 0 ? "triangle" : "sine"
-        );
-      });
-
-      pattern.melody.forEach((note, index) => {
-        playNote(
-          midiToFrequency(note),
-          currentTime + 0.85 + index * 0.52,
-          0.9,
-          0.018,
-          "sine"
-        );
-      });
-
-      progressionIndex = (progressionIndex + 1) % progression.length;
-    }
-
-    async function startMusic() {
-      setupAudio();
-      if (!audioContext) {
-        return;
-      }
-
-      if (audioContext.state === "suspended") {
-        await audioContext.resume();
-      }
-
-      schedulePattern();
-      musicLoopId = window.setInterval(schedulePattern, 2700);
-      isMusicPlaying = true;
-      musicToggle.classList.add("is-playing");
-      musicToggle.setAttribute("aria-pressed", "true");
-      musicLabel.textContent = "Pause music";
-    }
-
-    async function stopMusic() {
-      if (!audioContext) {
-        return;
-      }
-
-      window.clearInterval(musicLoopId);
-      musicLoopId = undefined;
-
-      masterGain.gain.cancelScheduledValues(audioContext.currentTime);
-      masterGain.gain.setTargetAtTime(0.0001, audioContext.currentTime, 0.15);
-      isMusicPlaying = false;
-      musicToggle.classList.remove("is-playing");
-      musicToggle.setAttribute("aria-pressed", "false");
-      musicLabel.textContent = "Play music";
-
-      window.setTimeout(async () => {
-        if (!isMusicPlaying && audioContext && audioContext.state === "running") {
-          await audioContext.suspend();
-          masterGain.gain.value = 0.06;
-        }
-      }, 420);
-    }
-
-    musicToggle.addEventListener("click", async () => {
-      if (isMusicPlaying) {
-        await stopMusic();
-        return;
-      }
-
-      await startMusic();
-    });
-  </script>
+  <script src="script.js" defer></script>
 </body>
 </html>
